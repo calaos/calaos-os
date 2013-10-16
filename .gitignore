@@ -1,0 +1,13 @@
+build
+sources/*
+!sources/layers.txt
+conf/auto.conf
+conf/sanity_info
+conf/site.conf
+pseudodone
+git_config
+subversion_config/
+package-depends.dot
+pn-depends.dot
+task-depends.dot
+tags
