@@ -1,9 +1,7 @@
 calaos-os
 =========
 
----
-
-calaos-os contains the scripts needed to build Calaos images. The buildsystem is using OpenEmbedded and the scripts comes from the great Angstrom build system.
+Calaos OS contains the scripts needed to build Calaos images. The buildsystem is using OpenEmbedded and the scripts comes from the great Angstrom build system.
 
 
 Supported boards
