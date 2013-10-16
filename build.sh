@@ -303,6 +303,14 @@ function update_oe()
 
     #manage meta-openembedded and meta-angstrom with layerman
     env gawk -v command=update -f ${OE_BASE}/scripts/layers.awk ${OE_LAYERS_TXT}
+
+    #ugly hack to remove bbappend which doesn't exists with our various revisions
+    rm -rf sources/meta-ti/recipes-misc/images/cloud9-gnome-image.bb
+    rm -rf sources/meta-ti/recipes-misc/images/cloud9-image.bb
+    rm -rf sources/meta-ti/recipes-misc/images/ti-hw-bringup-image.bb
+    rm -rf sources/meta-ti/recipes-misc/images/cloud9-gfx-image.bb
+    rm -rf sources/meta-intel/common/recipes-graphics/mesa/mesa_9.1.5.bbappend
+    rm -rf sources/meta-openembedded/meta-systemd/oe-core/recipes-core/util-linux/util-linux_2.23.1.bbappend
 }
 
 ###############################################################################
