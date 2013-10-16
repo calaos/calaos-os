@@ -471,6 +471,13 @@ then
             exit 0
             ;;
 
+       "build" )
+
+            shift
+            oe_build calaos-image
+            exit 0
+            ;;
+
        "config" )
     
             shift
