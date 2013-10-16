@@ -1,0 +1,9 @@
+bitbake,git://github.com/openembedded/bitbake.git,master,6acd444a557bba977ae1772371fdadf5f510e3b6
+meta-openembedded,git://git.openembedded.org/meta-openembedded,master,6b50a7d6621eba239380b11606110caab814eb51
+oe-core,git://github.com/openembedded/oe-core.git,master,51c43e08b388ed15520c66977bbb49df18e5f124
+meta-allwinner,git://github.com/naguirre/meta-allwinner.git,master,0d2df1c04192f85186abb52b7144f10104de28d0
+meta-intel,git://git.yoctoproject.org/meta-intel,master,c5bce5dcaedc570c5220632c65dcf00773e0fd6b
+meta-cubox,git://github.com/naguirre/meta-cubox.git,master,da1149747af381273941844eb04b986cad700b6a
+meta-raspberrypi,git://git.yoctoproject.org/meta-raspberrypi,master,0537685dc76d28808f6333dcb191bb1afce0e02f
+meta-ti,git://git.yoctoproject.org/meta-ti,master,3f3f05eea39d0f13bc140747984e202e9288b2fe
+meta-calaos,git@github.com:calaos/meta-calaos.git,master,HEAD
