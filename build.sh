@@ -28,8 +28,11 @@
 ###############################################################################
 # OE_BASE    - The root directory for all OE sources and development.
 ###############################################################################
-OE_BASE=${PWD}
-OE_BUILD_DIR=${PWD}
+export OE_BASE=${PWD}
+export OE_BUILD_DIR=${PWD}
+export OE_SOURCE_DIR=${PWD}/src
+OE_LAYERS_TXT="${OE_BASE}/src/layers.txt"
+
 # incremement this to force recreation of config files
 OE_ENV_FILE=./env.sh
 
@@ -93,47 +96,22 @@ function oe_config()
     echo "Setup for ${CL_MACHINE} completed"
 }
 
-function clone_or_update()
-{
-    if [ -d $2 ]; then
-        git co $3
-    else
-        git clone $1 $2
-    fi
-
-    
-}
-
 ###############################################################################
 # UPDATE_OE() - Update OpenEmbedded distribution.
 ###############################################################################
 function update_oe()
 {
-    if [ "x$PROXYHOST" != "x" ] ; then
-        config_git_proxy
-    fi
-
-
-    mkdir -p ${OE_BASE}/src
-    cd ${OE_BASE}/src
-    clone_or_update git://github.com/openembedded/bitbake.git bitbake 5051f59976de4e099bb434aeea414de5a67a069f
-    clone_or_update git://git.openembedded.org/meta-openembedded meta-oe 513e7ca20ddd0a5c3b649bf292a67c3e0473d3a8
-    clone_or_update git://github.com/openembedded/oe-core.git oe-core e36ac3ab3a7fe02c7eeb3998ff33c001ab795841
-    clone_or_update https://github.com/linux-sunxi/meta-sunxi meta-sunxi 3a8616d932fa71592a0d1144e044ba2d11f259c6
-    clone_or_update git://git.yoctoproject.org/meta-intel meta-intel bf3b0601fa45b98ad33a2e4fd048f3616f50d8da
-    clone_or_update git://git.yoctoproject.org/meta-raspberrypi meta-raspberrypi 0537685dc76d28808f6333dcb191bb1afce0e02f
-    clone_or_update git://git.yoctoproject.org/meta-ti meta-ti f3c7afb5a3f762894fb0476081d862cb3d54e2dd
-    clone_or_update https://github.com/calaos/meta-calaos.git meta-calaos HEAD
+    #manage meta-openembedded and meta-angstrom with layerman
+    env gawk -v command=update -f ./scripts/layers.awk ${OE_LAYERS_TXT}
 
     #ugly hack to remove bbappend which doesn't exists with our various revisions
-    rm -rf ${OE_BASE}/src/meta-ti/recipes-misc/images/cloud9-gnome-image.bb
-    rm -rf ${OE_BASE}/src/meta-ti/recipes-misc/images/cloud9-image.bb
-    rm -rf ${OE_BASE}src/meta-ti/recipes-misc/images/ti-hw-bringup-image.bb
-    rm -rf ${OE_BASE}src/meta-ti/recipes-misc/images/cloud9-gfx-image.bb
-    rm -rf ${OE_BASE}src/meta-intel/common/recipes-graphics/mesa/mesa_9.1.5.bbappend
-    rm -rf ${OE_BASE}src/meta-openembedded/meta-systemd/oe-core/recipes-core/util-linux/util-linux_2.23.1.bbappend
+    rm -rf src/meta-ti/recipes-misc/images/cloud9-gnome-image.bb
+    rm -rf src/meta-ti/recipes-misc/images/cloud9-image.bb
+    rm -rf src/meta-ti/recipes-misc/images/ti-hw-bringup-image.bb
+    rm -rf src/meta-ti/recipes-misc/images/cloud9-gfx-image.bb
+    rm -rf src/meta-intel/common/recipes-graphics/mesa/mesa_9.1.5.bbappend
+    rm -rf src/meta-openembedded/meta-systemd/oe-core/recipes-core/util-linux/util-linux_2.23.1.bbappend
 
-    cd ${OE_BASE}
 }
 
 
@@ -147,21 +125,26 @@ function update_oe()
 if [ $# -gt 0 ]
 then
     case $1 in   
-       
-       "update" ) 
-           update_oe
-           exit 0
-           ;;
-
-       "config" )
-    
+        "init" )
+            shift
+            CL_MACHINE=$1
+            shift
+            oe_config $*
+            update_oe
+            exit 0
+            ;;
+        "update" ) 
+            update_oe
+            exit 0
+            ;;
+        
+        "config" )
             shift
             CL_MACHINE=$1
             shift
             oe_config $*
             exit 0
             ;;
-        
     esac
 fi
 
