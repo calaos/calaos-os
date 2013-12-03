@@ -20,6 +20,11 @@ How to build
 
 This is a quick howto for building a fresh Calaos image.
 
+Before you need to get all required modules:
+```bash
+./build.sh init
+```
+
 First you need to configure which machine you want to build to:
 ```bash
 ./build.sh config raspberrypi

@@ -171,7 +171,7 @@ else
     #--------------------------------------------------------------------------
     # Include up-to-date bitbake in our PATH.
     #--------------------------------------------------------------------------
-    export BPATH=${OE_SOURCE_DIR}/openembedded-core/scripts:${OE_SOURCE_DIR}/bitbake/bin:${PATH}
+    export BPATH=${OE_SOURCE_DIR}/openembedded-core/scripts:${OE_SOURCE_DIR}/bitbake/bin
 
     echo "export PATH=\"${BPATH}\":\$PATH" >> ${OE_ENV_FILE}
 
@@ -302,12 +302,12 @@ function update_oe()
     env gawk -v command=update -f ${OE_BASE}/scripts/layers.awk ${OE_LAYERS_TXT}
 
     #ugly hack to remove bbappend which doesn't exists with our various revisions
-    rm -rf sources/meta-ti/recipes-misc/images/cloud9-gnome-image.bb
-    rm -rf sources/meta-ti/recipes-misc/images/cloud9-image.bb
-    rm -rf sources/meta-ti/recipes-misc/images/ti-hw-bringup-image.bb
-    rm -rf sources/meta-ti/recipes-misc/images/cloud9-gfx-image.bb
-    rm -rf sources/meta-intel/common/recipes-graphics/mesa/mesa_9.1.5.bbappend
-    rm -rf sources/meta-openembedded/meta-systemd/oe-core/recipes-core/util-linux/util-linux_2.23.1.bbappend
+    rm -rf src/meta-ti/recipes-misc/images/cloud9-gnome-image.bb
+    rm -rf src/meta-ti/recipes-misc/images/cloud9-image.bb
+    rm -rf src/meta-ti/recipes-misc/images/ti-hw-bringup-image.bb
+    rm -rf src/meta-ti/recipes-misc/images/cloud9-gfx-image.bb
+    rm -rf src/meta-intel/common/recipes-graphics/mesa/mesa_9.1.5.bbappend
+    rm -rf src/meta-openembedded/meta-systemd/oe-core/recipes-core/util-linux/util-linux_2.23.1.bbappend
 }
 
 ###############################################################################
@@ -408,7 +408,12 @@ env gawk -v command=checkout -v commandarg=$TAG -f ${OE_BASE}/scripts/layers.awk
 
 if [ $# -gt 0 ]
 then
-    case $1 in   
+    case $1 in  
+
+       "init" )
+           update_all
+           exit 0
+           ;;
        
        "update" ) 
            update_all
@@ -501,7 +506,8 @@ echo -e "${CYAN}#    ${BLUE}http://www.calaos.fr                                
 echo -e "${CYAN}#                                                                              #${NC}"
 echo -e "${CYAN}################################################################################${NC}"
 echo ""
-echo "Usage: $0 config <machine>"
+echo "Usage: $0 init"
+echo "       $0 config <machine>"
 echo "       $0 update"
 echo "       $0 reset"
 echo "       $0 tag [tagname]"
