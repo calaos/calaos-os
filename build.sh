@@ -135,8 +135,6 @@ if [ -e ${OE_ENV_FILE} ] ; then
     . ${OE_ENV_FILE}
 else
 
-    mkdir -p ~/.oe/
-
     #--------------------------------------------------------------------------
     # Specify distribution information
     #--------------------------------------------------------------------------
@@ -154,7 +152,7 @@ else
     #--------------------------------------------------------------------------
     OE_BUILD_DIR=${OE_BASE}
     OE_BUILD_TMPDIR="${OE_BUILD_DIR}/build/tmp-${DISTRO_DIRNAME}"
-    OE_SOURCE_DIR=${OE_BASE}/sources
+    OE_SOURCE_DIR=${OE_BASE}/src
     OE_LAYERS_TXT="${OE_SOURCE_DIR}/layers.txt"
 
     export BUILDDIR=${OE_BUILD_DIR}
@@ -173,9 +171,9 @@ else
     #--------------------------------------------------------------------------
     # Include up-to-date bitbake in our PATH.
     #--------------------------------------------------------------------------
-    export PATH=${OE_SOURCE_DIR}/openembedded-core/scripts:${OE_SOURCE_DIR}/bitbake/bin:${PATH}
+    export BPATH=${OE_SOURCE_DIR}/openembedded-core/scripts:${OE_SOURCE_DIR}/bitbake/bin:${PATH}
 
-    echo "export PATH=\"${PATH}\"" >> ${OE_ENV_FILE}
+    echo "export PATH=\"${BPATH}\":\$PATH" >> ${OE_ENV_FILE}
 
     #--------------------------------------------------------------------------
     # Make sure Bitbake doesn't filter out the following variables from our
@@ -260,7 +258,7 @@ function oe_build()
         else
             CL_MACHINE=$MACHINE
             set_environment
-            config_oe && update_all
+            config_oe
         fi
     fi
 
@@ -286,7 +284,6 @@ function oe_config()
 {
     set_environment
     config_oe
-    update_all
 
     echo ""
     echo "Setup for ${CL_MACHINE} completed"
@@ -522,6 +519,7 @@ echo ""
 echo "The <machine> argument can be one of the following"
 echo "       n450:          x86 Intel Atom board"
 echo "       mele:          Mele A1000/A2000 using A10 processor"
+echo "       meleg:         Mele A1000G/A2000G using A10 processor"
 echo "       cubieboard:    Cubieboard"
 echo "       raspberrypi:   Raspberry Pi"
 echo "       olinuxino-a13: Olinuxino A13"
