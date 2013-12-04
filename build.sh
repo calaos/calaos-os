@@ -157,6 +157,7 @@ echo -e "${CYAN}#                                                               
 echo -e "${CYAN}################################################################################${NC}"
 echo ""
 echo "Usage: $0 config <machine>"
+echo "       $0 init <machine>"
 echo "       $0 update"
 echo ""
 echo ""
