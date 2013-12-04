@@ -20,19 +20,20 @@ How to build
 
 This is a quick howto for building a fresh Calaos image.
 
-Before you need to get all required modules:
+Before you need to get all required modules and configure for the wanted machine:
 ```bash
-./build.sh init
+./build.sh init <machine>
 ```
 
-First you need to configure which machine you want to build to:
+Then you can configure another machine you want to build to:
 ```bash
 ./build.sh config raspberrypi
 ```
 
-The script will download all needed recipes from various places. When it's finished you can start a build by using:
+Finally you can start a build using bitbake:
 ```bash
-./build.sh build
+source ./env.sh
+bitbake calaos-image
 ```
 
 You will find the images in build/tmp-calaos-eglibc/deploy/images
