@@ -1,6 +1,6 @@
 build
-sources/*
-!sources/layers.txt
+src/*
+!src/layers.txt
 conf/auto.conf
 conf/sanity_info
 conf/site.conf
