@@ -13,5 +13,4 @@ task-depends.dot
 tags
 bitbake.lock
 cache
-env.sh
 downloads
