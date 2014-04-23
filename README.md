@@ -20,6 +20,11 @@ How to build
 
 This is a quick howto for building a fresh Calaos image.
 
+Launch the build script without arguments to get the list of options and supported machines:
+```bash
+./build.sh
+```
+
 Before you need to get all required modules and configure for the wanted machine:
 ```bash
 ./build.sh init <machine>
