@@ -1,9 +1,9 @@
-bitbake,git://github.com/openembedded/bitbake.git,1.20,5051f59976de4e099bb434aeea414de5a67a069f
-meta-openembedded,git://git.openembedded.org/meta-openembedded,dora,513e7ca20ddd0a5c3b649bf292a67c3e0473d3a8
-oe-core,git://github.com/openembedded/oe-core.git,dora,e36ac3ab3a7fe02c7eeb3998ff33c001ab795841
+bitbake,git://github.com/openembedded/bitbake.git,1.20,da93afe9834e137ed1e9410380181286c80198b5
+meta-openembedded,git://git.openembedded.org/meta-openembedded,dora,ee173678383683e972c7d4d6f0ef5790bfa50274
+oe-core,git://github.com/openembedded/oe-core.git,dora,97bc1bce9a226cc02db8a5afc2c0d4f4f70034a6
 meta-sunxi,https://github.com/linux-sunxi/meta-sunxi,master,ea2055061fcf5cd6a784083587cf1d493af42d1a
-meta-intel,git://git.yoctoproject.org/meta-intel,dora,bf3b0601fa45b98ad33a2e4fd048f3616f50d8da
-meta-raspberrypi,git://git.yoctoproject.org/meta-raspberrypi,master,0537685dc76d28808f6333dcb191bb1afce0e02f
-meta-ti,git://git.yoctoproject.org/meta-ti,master,f3c7afb5a3f762894fb0476081d862cb3d54e2dd
+meta-intel,git://git.yoctoproject.org/meta-intel,dora,acf2b4013d981563081bc072e778c4caaab7c67d
+meta-raspberrypi,git://git.yoctoproject.org/meta-raspberrypi,dora,1c696a95f16337e4168a045479a386194d32e18f
+meta-ti,git://git.yoctoproject.org/meta-ti,dora,ebc910f01656f46ad9a71f7b4fe6169ded72b4a4
 meta-cubox,https://github.com/dv1/meta-cubox.git,master,a30dc36b6d978eae70a6920c8268566d676f6e31
 meta-calaos,https://github.com/calaos/meta-calaos.git,master,HEAD
