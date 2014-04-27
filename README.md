@@ -46,5 +46,4 @@ source ./env.sh
 bitbake calaos-image
 ```
 
-You will find the images in build/tmp-calaos-eglibc/deploy/images
-
+You will find the images in tmp-eglibc/deploy/images/
