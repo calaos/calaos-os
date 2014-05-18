@@ -11,6 +11,7 @@ The following hardware are supported by the Calaos team:
 - Mele A1000 / Mele A2000
 - Raspberry Pi
 - Intel Atom based board
+- NUC intel platform
 - Cubieboard
 
 Other hardware may be supported but only those one are heavily tested by us. Feel free to try to port to a new hardware, and come to check with us for all the details.
