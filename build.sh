@@ -114,7 +114,65 @@ function update_oe()
 
 }
 
+function clone_or_update()
+{
+    dir=$1
+    gitrepo=$2
+    branch=$3
 
+    echo "Syncing repository $gitrepo"
+
+    if ! [ -e ${dir} ] ; then
+        git clone $gitrepo $dir
+        ( cd $dir; git checkout $branch; )
+    else
+        ( cd $dir; git clean -d -f -x; git reset --hard $branch; git checkout $branch; git pull --rebase; )
+    fi
+}
+
+function jenkins_build()
+{
+    MACH=$1
+    BRANCH="master"  #default to master branch
+    [ ! -z "$2" ] && BRANCH=$2
+    BUILDDIR=$(pwd)/calaos-os
+
+    clone_or_update $BUILDDIR https://github.com/calaos/calaos-os.git $BRANCH
+    cd $BUILDDIR
+
+    ./build.sh init $MACH
+    ./build.sh update
+    ./build.sh config $MACH
+
+    ###TODO: this need to be fixed properly to use relative path and not fixed
+    #echo "FEED_DEPLOYDIR_BASE_URI = \"http://oe.calaos.fr/\"" >> conf/local.conf
+    echo "DL_DIR = \"/home/ubuntu/calaos-os/downloads\"" >> conf/local.conf
+    echo "SSTATE_DIR = \"/home/ubuntu/calaos-os/sstate-cache\"" >> conf/local.conf
+
+    VERSION=$(git describe --long --tags --always master)
+    echo "DISTRO_VERSION=\"$VERSION\"" >> conf/local.conf
+
+    source ./env.sh
+
+    bitbake calaos-image
+
+    builddate=`date +%F`
+    tarfile="calaos-os-${MACH}-${VERSION}-${builddate}.tar.xz"
+
+    if [ "$MACH" = "nuc" ] ; then
+        tar -cJvf $tarfile -h tmp-eglibc/deploy/images/$MACH/calaos-image-${MACH}.hddimg
+    else
+        if [ "$MACH" = "n450" ] ; then
+            tar -cJvf $tarfile -h tmp-eglibc/deploy/images/$MACH/calaos-image-${MACH}.hddimg
+        else
+            tar -cJvf $tarfile -h tmp-eglibc/deploy/images/$MACH/calaos-image-${MACH}.*-sdimg
+        fi
+    fi
+
+    rsync -avz -e ssh $tarfile nico@calaos.fr:/home/raoul/www/download.calaos.fr/calaos-os/$MACH
+
+    cd ..
+}
 
 ###############################################################################
 # Build the specified OE packages or images.
@@ -145,6 +203,10 @@ then
             oe_config $*
             exit 0
             ;;
+        "jenkins" )  #Usage ./build.sh jenkins <MACHINE> <BRANCH>
+            shift
+            jenkins_build $*
+            exit 0
     esac
 fi
 
