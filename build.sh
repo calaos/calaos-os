@@ -174,6 +174,73 @@ function jenkins_build()
     cd ..
 }
 
+function tag()
+{
+
+    calaos_projects="calaos_base calaos_mobile calaos_installer calaos-web-app"
+    tag_name=$1
+    if [ "$tag_name" == "delete" ]; then
+	tag_name=$2
+	delete="1"
+    fi 
+    
+    echo -e "Create TAG $tag_name for "
+    for p in $calaos_projects ; do
+	echo -e "$p"
+    done
+    echo "."
+
+    
+    echo "Check if all calaos repositories are present in ../calaos directory"
+    if [ ! -d "../calaos" ]; then
+	echo "../calaos doesn't exist, creating."
+	mkdir -p "../calaos"
+    fi
+
+    for p in $calaos_projects ; do
+	cd "../calaos/"
+	if [ ! -d "../calaos/$p" ] ; then
+	   echo "$p doesnt exists clone it"
+	   git clone "https://github.com/calaos/$p.git"
+	fi
+	cd $p
+	if [ "$delete" ==  "1" ]; then
+	    echo "Deleting tag $tag_name for $p :"
+	    git tag -d $tag_name
+	    git push origin :refs/tags/$tag_name
+	else
+	    echo "Creating tag $tag_name for $p :"
+	    git tag $tag_name
+	    git push --tag
+
+	fi
+	git tag
+	cd ..
+    done
+    cd ../calaos-os/
+    ./build.sh init
+    if [ "$delete" == "1" ]; then
+	echo "Deleting tag $tag_name for $p :"
+	git tag -d $tag_name
+	git push origin :refs/tags/$tag_name
+    else
+	echo "Creating tag $tag_name for $p :"
+	git tag $tag_name
+	git push --tag
+    fi
+    cd src/meta-calaos
+
+    if [ "$delete" -eq "1" ]; then
+	echo "Deleting tag $tag_name for $p :"
+	git tag -d $tag_name
+	git push origin :refs/tags/$tag_name
+    else
+	echo "Creating tag $tag_name for $p :"
+	git tag $tag_name
+	git push --tag
+    fi
+}
+
 ###############################################################################
 # Build the specified OE packages or images.
 ###############################################################################
@@ -206,6 +273,11 @@ then
         "jenkins" )  #Usage ./build.sh jenkins <MACHINE> <BRANCH>
             shift
             jenkins_build $*
+            exit 0
+	    ;;
+        "tag" ) #Usage ./build.sh tag tag_name
+            shift
+            tag $*
             exit 0
     esac
 fi
