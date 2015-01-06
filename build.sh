@@ -157,21 +157,23 @@ function jenkins_build()
     bitbake calaos-image
 
     builddate=`date +%F`
-    tarfile="calaos-os-${MACH}-${VERSION}-${builddate}.tar.xz"
+    tarfile="calaos-image-${MACH}-${VERSION}-${builddate}.tar.xz"
 
+    cd tmp-eglibc/deploy/images/$MACH
     if [ "$MACH" = "nuc" ] ; then
-        tar -cJvf $tarfile -h tmp-eglibc/deploy/images/$MACH/calaos-image-${MACH}.hddimg
+        tar -cJvf $tarfile -h calaos-image-${MACH}.hddimg
     else
         if [ "$MACH" = "n450" ] ; then
-            tar -cJvf $tarfile -h tmp-eglibc/deploy/images/$MACH/calaos-image-${MACH}.hddimg
+            tar -cJvf $tarfile -h calaos-image-${MACH}.hddimg
         else
-            tar -cJvf $tarfile -h tmp-eglibc/deploy/images/$MACH/calaos-image-${MACH}.*-sdimg
+            tar -cJvf $tarfile -h calaos-image-${MACH}.*-sdimg
         fi
     fi
 
     rsync -avz -e ssh $tarfile nico@calaos.fr:/home/raoul/www/download.calaos.fr/calaos-os/$MACH
+    rsync -avz -e ssh "*.*img" nico@calaos.fr:/home/raoul/www/download.calaos.fr/calaos-os/$MACH
 
-    cd ..
+    cd ../../../..
 }
 
 function tag()
