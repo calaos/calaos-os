@@ -136,6 +136,7 @@ function jenkins_build()
     BRANCH="master"  #default to master branch
     [ ! -z "$2" ] && BRANCH=$2
     BUILDDIR=$(pwd)/calaos-os
+    BUILD_TYPE=$3
 
     clone_or_update $BUILDDIR https://github.com/calaos/calaos-os.git $BRANCH
     cd $BUILDDIR
@@ -170,8 +171,12 @@ function jenkins_build()
         fi
     fi
 
-    rsync -avz -e ssh $tarfile nico@calaos.fr:/home/raoul/www/download.calaos.fr/calaos-os/$MACH
-    rsync -avz -e ssh "*.*img" nico@calaos.fr:/home/raoul/www/download.calaos.fr/calaos-os/$MACH
+    type=experimental
+    [ "$BUILD_TYPE" = "TESTING" ] && type=testing
+    [ "$BUILD_TYPE" = "STABLE" ] && type=stable
+
+    rsync -avz -e ssh $tarfile uploader@calaos.fr:/home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH
+    rsync -avz -e ssh "*.*img" uploader@calaos.fr:/home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH
 
     cd ../../../..
 }
@@ -272,7 +277,7 @@ then
             oe_config $*
             exit 0
             ;;
-        "jenkins" )  #Usage ./build.sh jenkins <MACHINE> <BRANCH>
+        "jenkins" )  #Usage ./build.sh jenkins <MACHINE> <BRANCH> <TYPE>
             shift
             jenkins_build $*
             exit 0
