@@ -150,7 +150,11 @@ function jenkins_build()
     echo "DL_DIR = \"/home/ubuntu/calaos-os/downloads\"" >> conf/local.conf
     echo "SSTATE_DIR = \"/home/ubuntu/calaos-os/sstate-cache\"" >> conf/local.conf
 
-    VERSION=$(git describe --long --tags --always master)
+    if [ "$BUILD_TYPE" = "STABLE" ]; then
+        VERSION=$(git describe --tags --always master)
+    else
+        VERSION=$(git describe --long --tags --always master)
+    fi
     echo "DISTRO_VERSION=\"$VERSION\"" >> conf/local.conf
 
     source ./env.sh
@@ -184,7 +188,7 @@ function jenkins_build()
 function tag()
 {
 
-    calaos_projects="calaos_base calaos_mobile calaos_installer calaos-web-app"
+    calaos_projects="calaos_base calaos_installer calaos-web-app"
     tag_name=$1
     if [ "$tag_name" == "delete" ]; then
 	tag_name=$2
