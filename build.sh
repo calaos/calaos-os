@@ -150,19 +150,20 @@ function jenkins_build()
     echo "DL_DIR = \"/home/ubuntu/calaos-os/downloads\"" >> conf/local.conf
     echo "SSTATE_DIR = \"/home/ubuntu/calaos-os/sstate-cache\"" >> conf/local.conf
 
+    builddate=`date +%F`
+
     if [ "$BUILD_TYPE" = "STABLE" ]; then
         VERSION=$(git describe --tags --always master)
+        tarfile="calaos-image-${MACH}-${VERSION}.tar.xz"
     else
         VERSION=$(git describe --long --tags --always master)
+        tarfile="calaos-image-${MACH}-${VERSION}-${builddate}.tar.xz"
     fi
     echo "DISTRO_VERSION=\"$VERSION\"" >> conf/local.conf
 
     source ./env.sh
 
     bitbake calaos-image
-
-    builddate=`date +%F`
-    tarfile="calaos-image-${MACH}-${VERSION}-${builddate}.tar.xz"
 
     cd tmp-eglibc/deploy/images/$MACH
     if [ "$MACH" = "nuc" ] ; then
@@ -179,7 +180,8 @@ function jenkins_build()
     [ "$BUILD_TYPE" = "TESTING" ] && type=testing
     [ "$BUILD_TYPE" = "STABLE" ] && type=stable
 
-    scp $tarfile "*.*img" uploader@calaos.fr:/home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH/
+    rsync -avz -e ssh $tarfile uploader@calaos.fr:/home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH
+    rsync -avz -e ssh "*.*img" uploader@calaos.fr:/home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH
 
     cd ../../../..
 }
