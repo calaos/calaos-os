@@ -4,4 +4,4 @@ oe-core,git://github.com/openembedded/oe-core.git,dora,1e155330f6cf132997b91a7cf
 meta-sunxi,https://github.com/linux-sunxi/meta-sunxi,dora,77681ae46f372feb47b2665332ac92fea5e9eb4b
 meta-intel,git://git.yoctoproject.org/meta-intel,dora,acf2b4013d981563081bc072e778c4caaab7c67d
 meta-raspberrypi,git://git.yoctoproject.org/meta-raspberrypi,dora,1c696a95f16337e4168a045479a386194d32e18f
-meta-calaos,https://github.com/calaos/meta-calaos.git,master,c4a58bf6027b2b4e9052ce5bb83aeb9b683baecb
+meta-calaos,https://github.com/calaos/meta-calaos.git,master,8ccfa31c6df38f33301ebaa908d676a4d6ed115c
