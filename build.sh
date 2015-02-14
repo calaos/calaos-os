@@ -167,21 +167,23 @@ function jenkins_build()
 
     cd tmp-eglibc/deploy/images/$MACH
     if [ "$MACH" = "nuc" ] ; then
-        tar -cJvf $tarfile -h calaos-image-${MACH}.hddimg
+        imgfile="$(readlink -f calaos-image-${MACH}.hddimg)"
     else
         if [ "$MACH" = "n450" ] ; then
-            tar -cJvf $tarfile -h calaos-image-${MACH}.hddimg
+            imgfile="$(readlink -f calaos-image-${MACH}.hddimg)"
         else
-            tar -cJvf $tarfile -h calaos-image-${MACH}.*-sdimg
+            imgfile="$(readlink -f calaos-image-${MACH}.*-sdimg)"
         fi
     fi
+
+    tar -cJvf $tarfile -h $imgfile
 
     type=experimental
     [ "$BUILD_TYPE" = "TESTING" ] && type=testing
     [ "$BUILD_TYPE" = "STABLE" ] && type=stable
 
     rsync -avz -e ssh $tarfile uploader@calaos.fr:/home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH
-    rsync -avz -e ssh "*.*img" uploader@calaos.fr:/home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH
+    ssh uploader@calaos.fr tar -C /home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH -xJvf /home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH/$tarfile
 
     cd ../../../..
 }
