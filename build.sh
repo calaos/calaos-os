@@ -167,12 +167,12 @@ function jenkins_build()
 
     cd tmp-eglibc/deploy/images/$MACH
     if [ "$MACH" = "nuc" ] ; then
-        imgfile="$(readlink -f calaos-image-${MACH}.hddimg)"
+        imgfile="$(basename $(readlink -f calaos-image-${MACH}.hddimg))"
     else
         if [ "$MACH" = "n450" ] ; then
-            imgfile="$(readlink -f calaos-image-${MACH}.hddimg)"
+            imgfile="$(basename $(readlink -f calaos-image-${MACH}.hddimg))"
         else
-            imgfile="$(readlink -f calaos-image-${MACH}.*-sdimg)"
+            imgfile="$(basename $(readlink -f calaos-image-${MACH}.*-sdimg))"
         fi
     fi
 
