@@ -44,7 +44,7 @@ Then you can configure another machine you want to build to:
 Finally you can start a build using bitbake:
 ```bash
 source ./env.sh
-bitbake calaos-image
+bitbake calaos-os
 ```
 
 You will find the images in tmp-eglibc/deploy/images/
