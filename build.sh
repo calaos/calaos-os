@@ -163,7 +163,7 @@ function jenkins_build()
 
     source ./env.sh
 
-    bitbake calaos-image
+    bitbake calaos-os
 
     cd tmp-eglibc/deploy/images/$MACH
     if [ "$MACH" = "nuc" -o "$MACH" = "n450" -o "$MACH" = "intel-core2-32" -o "$MACH" = "intel-corei7-64" ] ; then
