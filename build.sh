@@ -166,14 +166,10 @@ function jenkins_build()
     bitbake calaos-image
 
     cd tmp-eglibc/deploy/images/$MACH
-    if [ "$MACH" = "nuc" ] ; then
+    if [ "$MACH" = "nuc" -o "$MACH" = "n450" -o "$MACH" = "intel-core2-32" -o "$MACH" = "intel-corei7-64" ] ; then
         imgfile="$(basename $(readlink -f calaos-image-${MACH}.hddimg))"
     else
-        if [ "$MACH" = "n450" ] ; then
-            imgfile="$(basename $(readlink -f calaos-image-${MACH}.hddimg))"
-        else
-            imgfile="$(basename $(readlink -f calaos-image-${MACH}.*-sdimg))"
-        fi
+        imgfile="$(basename $(readlink -f calaos-image-${MACH}.*-sdimg))"
     fi
 
     tar -cJvf $tarfile -h $imgfile
