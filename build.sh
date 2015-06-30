@@ -165,7 +165,7 @@ function jenkins_build()
 
     bitbake calaos-os
 
-    cd tmp-eglibc/deploy/images/$MACH
+    cd tmp-*glibc/deploy/images/$MACH
     if [ "$MACH" = "nuc" -o "$MACH" = "n450" -o "$MACH" = "intel-core2-32" -o "$MACH" = "intel-corei7-64" ] ; then
         imgfile="$(basename $(readlink -f calaos-image-${MACH}.hddimg))"
     else
