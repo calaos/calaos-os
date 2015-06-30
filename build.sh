@@ -154,10 +154,10 @@ function jenkins_build()
 
     if [ "$BUILD_TYPE" = "STABLE" ]; then
         VERSION=$(git describe --tags --always master)
-        tarfile="calaos-image-${MACH}-${VERSION}.tar.xz"
+        tarfile="calaos-os-${MACH}-${VERSION}.tar.xz"
     else
         VERSION=$(git describe --long --tags --always master)
-        tarfile="calaos-image-${MACH}-${VERSION}-${builddate}.tar.xz"
+        tarfile="calaos-os-${MACH}-${VERSION}-${builddate}.tar.xz"
     fi
     echo "DISTRO_VERSION=\"$VERSION\"" >> conf/local.conf
 
@@ -167,9 +167,9 @@ function jenkins_build()
 
     cd tmp-*glibc/deploy/images/$MACH
     if [ "$MACH" = "nuc" -o "$MACH" = "n450" -o "$MACH" = "intel-core2-32" -o "$MACH" = "intel-corei7-64" ] ; then
-        imgfile="$(basename $(readlink -f calaos-image-${MACH}.hddimg))"
+        imgfile="$(basename $(readlink -f calaos-os-${MACH}.hddimg))"
     else
-        imgfile="$(basename $(readlink -f calaos-image-${MACH}.*-sdimg))"
+        imgfile="$(basename $(readlink -f calaos-os-${MACH}.*-sdimg))"
     fi
 
     tar -cJvf $tarfile -h $imgfile
