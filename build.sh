@@ -178,8 +178,8 @@ function jenkins_build()
     [ "$BUILD_TYPE" = "TESTING" ] && type=testing
     [ "$BUILD_TYPE" = "STABLE" ] && type=stable
 
-    rsync -avz -e ssh $tarfile uploader@calaos.fr:/home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH
-    ssh uploader@calaos.fr tar -C /home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH -xJvf /home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH/$tarfile
+    rsync -avz -e ssh $tarfile uploader@calaos.fr:/home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH/
+    ssh uploader@calaos.fr tar -C /home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH/ -xJvf /home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH/$tarfile
 
     cd ../../../..
 }
