@@ -1,7 +1,7 @@
 bitbake,git://github.com/openembedded/bitbake.git,1.26,4460e6de04844c4060f1fe87c8a4b247b731c63e
 meta-openembedded,git://git.openembedded.org/meta-openembedded,master,9a5d25f2a717814f948b492b9c01c1ff0edb678d
 oe-core,git://github.com/openembedded/oe-core.git,fido,d343c6a7369cb409563b8149cbb423a6171221ee
-meta-sunxi,https://github.com/linux-sunxi/meta-sunxi,master,4f66286422457d029a55fb8b0c93c10990ebd9f4
+meta-sunxi,https://github.com/linux-sunxi/meta-sunxi,master,73377c0bc6dec9a87e3202d315affc9ab5a6e168
 meta-intel,git://git.yoctoproject.org/meta-intel,master,53eea4f12311b4808b3af9695ac822eea1fc60c2
 meta-raspberrypi,git://git.yoctoproject.org/meta-raspberrypi,master,b896a7da70dd7a16ba7ffd664f7747cb37e1d142
 meta-ti,git://git.yoctoproject.org/meta-ti,master,1b66b5a01c1d657c7603dd63110cfb21998dbc98
