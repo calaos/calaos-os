@@ -3,7 +3,7 @@ meta-calaos,https://github.com/calaos/meta-calaos.git,master,983168014b710834540
 meta-fsl-arm,https://github.com/Freescale/meta-fsl-arm,master,663a838d38dd9124805771637232df0af01efd7c
 meta-intel,git://git.yoctoproject.org/meta-intel,master,5e218aeacace801c4f01a1db8c99ac8a51421661
 meta-openembedded,git://git.openembedded.org/meta-openembedded,master,f4533380c8a5c1d229f692222ee0c2ef9d187ef8
-meta-raspberrypi,git://git.yoctoproject.org/meta-raspberrypi,master,c6f7ec52cfe47e3f13646a76ee5c7d7f24581ef3
+meta-raspberrypi,https://github.com/kraj/meta-raspberrypi,master,aa82c705af234d09fa8b698fc1485a8afda38757
 meta-sunxi,https://github.com/linux-sunxi/meta-sunxi,master,f6b855d9484d491101f0579f4ab83fa3321f0a8c
 meta-ti,git://git.yoctoproject.org/meta-ti,master,5920c55bc0764338cd29debeb67a885a12d12fe2
 oe-core,https://github.com/openembedded/openembedded-core,master,72682d72b52355c3fed947167ca3c6064340ead1
