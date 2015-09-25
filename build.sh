@@ -251,6 +251,22 @@ function tag()
     fi
 }
 
+
+function genlayers()
+{
+    layerstxt=$1
+    #list only directories in src
+    cd src
+    for repo in `find * -maxdepth 0 -type d`; do
+        cd $repo
+        out="$repo,`git config --get remote.origin.url`,`git rev-parse --abbrev-ref HEAD`,`git log | head -n 1 | awk '{print $2}'`"
+        cd -
+        echo $out >> $layerstxt
+    done
+    cd ..
+}
+
+
 ###############################################################################
 # Build the specified OE packages or images.
 ###############################################################################
@@ -289,6 +305,12 @@ then
             shift
             tag $*
             exit 0
+            ;;
+        "genlayers" ) #Usage ./build.sh genlayers src/layers.txt : regenerate layers.txt from git repo in src
+            shift
+            genlayers $*
+            exit 0
+            ;;
     esac
 fi
 
