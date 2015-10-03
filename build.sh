@@ -254,14 +254,14 @@ function tag()
 
 function genlayers()
 {
-    layerstxt=$1
     #list only directories in src
     cd src
+    rm -rf "$OE_LAYERS_TXT"
     for repo in `find * -maxdepth 0 -type d`; do
         cd $repo
         out="$repo,`git config --get remote.origin.url`,`git rev-parse --abbrev-ref HEAD`,`git log | head -n 1 | awk '{print $2}'`"
         cd -
-        echo $out >> $layerstxt
+        echo $out >> "$OE_LAYERS_TXT"
     done
     cd ..
 }
@@ -306,7 +306,7 @@ then
             tag $*
             exit 0
             ;;
-        "genlayers" ) #Usage ./build.sh genlayers src/layers.txt : regenerate layers.txt from git repo in src
+        "genlayers" ) #Usage ./build.sh genlayers : regenerate src/layers.txt from git repo in src
             shift
             genlayers $*
             exit 0
@@ -325,6 +325,9 @@ echo ""
 echo "Usage: $0 config <machine>"
 echo "       $0 init <machine>"
 echo "       $0 update"
+echo "       $0 jenkins <MACHINE> <BRANCH> <TYPE>"
+echo "       $0 tag tag_name"
+echo "       $0 genlayers layers.txt"
 echo ""
 echo ""
 echo "You must invoke \"$0 config <machine>\" and then \"$0 update\" prior"
