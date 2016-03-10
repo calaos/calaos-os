@@ -6,7 +6,7 @@ meta-intel,git://git.yoctoproject.org/meta-intel,jethro,1ce13b3d39b2da79916e3a17
 meta-openembedded,git://git.openembedded.org/meta-openembedded,jethro,ad6133a2e95f4b83b6b3ea413598e2cd5fb3fd90
 meta-qt5,https://github.com/meta-qt5/meta-qt5.git,jethro,d5536e34ec985c82b621448ab4325e5cbba38560
 meta-qt5-rpi-eglfs,https://github.com/mickey-happygolucky/meta-qt5-rpi-eglfs.git,master,b6f7a7e174b958638b2983a038f0ccd92632deb4
-meta-raspberrypi,git@github.com:naguirre/meta-raspberrypi.git,jethro,f2cff839f52a6e6211337fc45c7c3eabf0fac113
+meta-raspberrypi,git://git.yoctoproject.org/meta-raspberrypi,master,38ab74bd3ecc7ee0b6b015788e57ea53268838ed
 meta-sunxi,https://github.com/linux-sunxi/meta-sunxi,master,e51d5cfdee124a7e01d347b739915b8abfa2ce34
 meta-ti,git://git.yoctoproject.org/meta-ti,master,d3ed6de7f59802ed11363bf1933b89631301d07a
 oe-core,https://github.com/openembedded/openembedded-core,jethro,224bcc2ead676600bcd9e290ed23d9b2ed2f481e
