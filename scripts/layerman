@@ -39,18 +39,15 @@ function check_layer() {
 		if [ "${CURRENTURI}" != "${LAYERURI}" ] ; then
 			echo "WARNING!!!!"
 			echo "WARNING: ${LAYERNAME} is using a different uri '${CURRENTURI}' than configured in layers.txt '${LAYERURI}'"
-			echo "WARNING: Changing uri to: '${LAYERURI}'"
+			echo "WARNING: Nothing is changed for $LAYERNAME"
 			echo "WARNING!!!!"
-			git remote set-url origin ${LAYERURI}
-			git remote update
 		fi
 		if [ "${CURRENTBRANCH}" != "${BRANCH}" ] ; then
 			#echo -e ${LAYERINFO}
 			echo "WARNING!!!!"
 			echo "WARNING: ${LAYERNAME} is using a different branch '${CURRENTBRANCH}' than configured in layers.txt '${BRANCH}'"
-			echo "WARNING: Changing branch to: '${BRANCH}'"
+			echo "WARNING: Nothing is changed for $LAYERNAME"
  			echo "WARNING!!!!"
-			git checkout origin/${BRANCH} -b ${BRANCH} >/dev/null || git checkout ${BRANCH}
 		fi
 	fi
 }
