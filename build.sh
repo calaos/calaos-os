@@ -130,6 +130,21 @@ function clone_or_update()
     fi
 }
 
+function upload_file()
+{
+    FNAME=$1
+    HASH=$2
+    INSTALLPATH=$3
+
+    curl -X POST \
+         -H "Content-Type: multipart/form-data" \
+         -F "upload_key=$UPLOAD_KEY" \
+         -F "upload_folder=$INSTALLPATH" \
+         -F "upload_sha256=$HASH" \
+         -F "upload_file=@$FNAME" \
+         https://calaos.fr/download/upload
+}
+
 function jenkins_build()
 {
     MACH=$1
@@ -163,25 +178,29 @@ function jenkins_build()
 
     source ./env.sh
 
-    bitbake calaos-os
-
+    if [ "$MACH" = "nuc" -o "$MACH" = "n450" -o "$MACH" = "intel-core2-32" -o "$MACH" = "intel-corei7-64" ] ; then
+        bitbake calaos-os
+    else
+        bitbake calaos-os-server
+    fi
+    
     cd tmp-*glibc/deploy/images/$MACH
     if [ "$MACH" = "nuc" -o "$MACH" = "n450" -o "$MACH" = "intel-core2-32" -o "$MACH" = "intel-corei7-64" ] ; then
         imgfile="$(basename $(readlink -f calaos-os-${MACH}.hddimg))"
     else
-        imgfile="$(basename $(readlink -f calaos-os-${MACH}.*-sdimg))"
+        imgfile="$(basename $(readlink -f calaos-os-server-${MACH}.*-sdimg))"
     fi
-
+    echo "tar -cJvf $tarfile -h $imgfile"
     tar -cJvf $tarfile -h $imgfile
 
     type=experimental
     [ "$BUILD_TYPE" = "TESTING" ] && type=testing
     [ "$BUILD_TYPE" = "STABLE" ] && type=stable
 
-    rsync -avz -e ssh $tarfile uploader@calaos.fr:/home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH/
-    ssh uploader@calaos.fr tar -C /home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH/ -xJvf /home/raoul/www/download.calaos.fr/$type/calaos-os/$MACH/$tarfile
-
-    cd ../../../..
+    
+    upload_file $tarfile $(shasum -a 256 $tarfile | cut -d' ' -f1) "$type/calaos-os/$MACH/"
+    
+     cd ../../../..
 }
 
 function tag()
