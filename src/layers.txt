@@ -1,4 +1,4 @@
-bitbake,git://github.com/openembedded/bitbake.git,1.32,1469828fa747da0aaaa3e964954ff17f2b3180fa
+bitbake,git://github.com/openembedded/bitbake.git,1.30,449dc9b955dfbe048e380f5ab9fd61c3d1489dad
 meta-calaos,https://github.com/calaos/meta-calaos.git,master,v3.0-alpha1
 meta-fsl-arm,https://github.com/Freescale/meta-freescale,krogoth,e2254e7b2ded0c2b66b1226f879b3a6d52037b2d
 meta-fsl-arm-extra,https://github.com/Freescale/meta-freescale-3rdparty,krogoth,e95f4ae61fdaf6452d6dfa9cb59dbdf9cdf73c99
