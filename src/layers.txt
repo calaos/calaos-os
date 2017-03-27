@@ -1,5 +1,5 @@
 bitbake,git://github.com/openembedded/bitbake.git,1.32,bdf7a362ecdafd47f309b7a21feac4b94624f287
-meta-calaos,https://github.com/calaos/meta-calaos.git,master,667e2c7cb8ce196f2e90e9ae6655a5c37545d965
+meta-calaos,https://github.com/calaos/meta-calaos.git,master,ba9dff392dd6c05c608c1ea61bfbf996ec07ebfa
 meta-fsl-arm,https://github.com/Freescale/meta-freescale,morty,fc804d29ee85d58e9bb66f7319e749b53e192457
 meta-fsl-arm-extra,https://github.com/Freescale/meta-freescale-3rdparty,morty,ca3b9fb4968bf5ca717d4c546051097f94a7fc7f
 meta-intel,git://git.yoctoproject.org/meta-intel,morty,6add41510412ca196efb3e4f949d403a8b6f35d7
