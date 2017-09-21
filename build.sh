@@ -136,6 +136,7 @@ function upload_file()
     HASH=$2
     INSTALLPATH=$3
 
+    echo "Uploading..."
     curl -X POST \
          -H "Content-Type: multipart/form-data" \
          -F "upload_key=$UPLOAD_KEY" \
@@ -150,7 +151,7 @@ function jenkins_build()
     MACH=$1
     BRANCH="master"  #default to master branch
     [ ! -z "$2" ] && BRANCH=$2
-    BUILDDIR=$(pwd)/calaos-os
+    BUILDDIR=$HOME/calaos-os
     BUILD_TYPE=$3
 
     clone_or_update $BUILDDIR https://github.com/calaos/calaos-os.git $BRANCH
@@ -162,8 +163,8 @@ function jenkins_build()
 
     ###TODO: this need to be fixed properly to use relative path and not fixed
     #echo "FEED_DEPLOYDIR_BASE_URI = \"http://oe.calaos.fr/\"" >> conf/local.conf
-    echo "DL_DIR = \"/home/ubuntu/calaos-os/downloads\"" >> conf/local.conf
-    echo "SSTATE_DIR = \"/home/ubuntu/calaos-os/sstate-cache\"" >> conf/local.conf
+    echo "DL_DIR = \"$HOME/calaos-os/downloads\"" >> conf/local.conf
+    echo "SSTATE_DIR = \"$HOME/calaos-os/sstate-cache\"" >> conf/local.conf
 
     builddate=`date +%F`
 
@@ -183,29 +184,61 @@ function jenkins_build()
     else
         bitbake calaos-os-server
     fi
-    
-    cd tmp-*glibc/deploy/images/$MACH
+}
+
+function deploy_image()
+{
+    if [ -z "$UPLOAD_KEY" ]
+    then
+        echo -e "${RED}\u2718 No UPLOAD_KEY defined. Aborting.${NC}"
+        return 1
+    fi
+
+    MACH=$1
+    BRANCH="master"  #default to master branch
+    [ ! -z "$2" ] && BRANCH=$2
+    BUILDDIR=$HOME/calaos-os
+    BUILD_TYPE=$3
+
+    pushd tmp-*glibc/deploy/images/$MACH
+    echo "Searching for image..."
     if [ "$MACH" = "nuc" -o "$MACH" = "n450" -o "$MACH" = "intel-core2-32" -o "$MACH" = "intel-corei7-64" ] ; then
         imgfile="$(basename $(readlink -f calaos-os-${MACH}.hddimg))"
     else
         imgfile="$(basename $(readlink -f calaos-os-server-${MACH}.*-sdimg))"
     fi
-    echo "tar -cJvf $tarfile -h $imgfile"
+
+    if [ ! -e $imgfile ]
+    then
+        echo -e "${RED}\u2718 $imgfile not found.${NC}"
+        return 1
+    fi
+
+    builddate=`date +%F`
+
+    if [ "$BUILD_TYPE" = "STABLE" ]; then
+        VERSION=$(git describe --tags --always master)
+        tarfile="calaos-os-${MACH}-${VERSION}.tar.xz"
+    else
+        VERSION=$(git describe --long --tags --always master)
+        tarfile="calaos-os-${MACH}-${VERSION}-${builddate}.tar.xz"
+    fi
+
+    echo "Compressing image to ${tarfile}..."
     tar -cJvf $tarfile -h $imgfile
 
     type=experimental
     [ "$BUILD_TYPE" = "TESTING" ] && type=testing
     [ "$BUILD_TYPE" = "STABLE" ] && type=stable
 
-    
     upload_file $tarfile $(shasum -a 256 $tarfile | cut -d' ' -f1) "$type/calaos-os/$MACH/"
-    
-     cd ../../../..
+
+    rm $tarfile
+    popd
 }
 
 function tag()
 {
-
     calaos_projects="calaos_base calaos_installer calaos-web-app"
     tag_name=$1
     if [ "$tag_name" == "delete" ]; then
@@ -318,8 +351,17 @@ then
         "jenkins" )  #Usage ./build.sh jenkins <MACHINE> <BRANCH> <TYPE>
             shift
             jenkins_build $*
+            deploy_image $*
+            echo -e "${GREEN}\u2713 All done.${NC}"
             exit 0
 	    ;;
+        "deploy" )  #Usage ./build.sh deploy <MACHINE> <BRANCH> <TYPE>
+            shift
+            deploy_image $*
+            echo -e "${green}\u2713 All done.${NC}"
+            exit 0
+	    ;;
+
         "tag" ) #Usage ./build.sh tag tag_name
             shift
             tag $*
