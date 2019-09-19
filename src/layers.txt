@@ -1,10 +1,10 @@
 bitbake,git://github.com/openembedded/bitbake.git,1.40,8a58c3c64240c6ab14858d18e6b89febdb315311
-meta-calaos,https://github.com/calaos/meta-calaos.git,master,c36c188bbb333aa204d6c35a1f8f09db666698ce
+meta-calaos,https://github.com/calaos/meta-calaos.git,master,4edc73ac42a7a2510c97e132d7d48426a7ff9e40
 meta-fsl-arm,https://github.com/Freescale/meta-freescale,thud,8b9a1e19b1983301bbad9f0c61a4d2adc3fdd741
 meta-fsl-arm-extra,https://github.com/Freescale/meta-freescale-3rdparty,thud,545e8094a140231e78b9284c3a3d94fcc573ae98
 meta-intel,git://git.yoctoproject.org/meta-intel,thud,c200851435f39acd2fe4abbf7a05fbf617833964
 meta-openembedded,git://git.openembedded.org/meta-openembedded,thud,2d088d252624b19df384aecc434d23afb636178f
-meta-qt5,https://github.com/meta-qt5/meta-qt5.git,thud,1520d5b2b2beec5e1c3209d3178219e93ef08bca
+meta-qt5,https://github.com/meta-qt5/meta-qt5.git,warrior,dc2dedef9961950b88f4245ba7499538ec4244ab
 meta-qt5-rpi-eglfs,https://github.com/mickey-happygolucky/meta-qt5-rpi-eglfs.git,master,b6f7a7e174b958638b2983a038f0ccd92632deb4
 meta-raspberrypi,git://git.yoctoproject.org/meta-raspberrypi,thud,89bdf97beaf3b136c24c4d6f86c0bcbb47fe3043
 meta-sunxi,https://github.com/linux-sunxi/meta-sunxi,thud,26f427cae55603620b64fd5d383d70ea8ff18aa8
