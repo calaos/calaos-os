@@ -23,7 +23,7 @@ This is a quick howto for building a fresh Calaos image.
 
 You need first install Yocto dependencies, on ubuntu machine you need to install these packages : 
 ```
-sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib build-essential chrpath libsdl1.2-dev xterm man
+sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib g++-multilib build-essential chrpath libsdl1.2-dev xterm man
 ```
 
 Launch the build script without arguments to get the list of options and supported machines:
