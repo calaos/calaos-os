@@ -36,11 +36,6 @@ OE_LAYERS_TXT="${OE_BASE}/src/layers.txt"
 # incremement this to force recreation of config files
 OE_ENV_FILE=./env.sh
 
-if ! git help log | grep -q no-abbrev ; then 
-	echo "Your installed version of git is too old, it lacks --no-abbrev. Please install 1.7.6 or newer"
-	exit 1
-fi
-
 red='\e[0;31m'
 RED='\e[1;31m'
 blue='\e[0;34m'
