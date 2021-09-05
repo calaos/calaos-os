@@ -1,8 +1,8 @@
-bitbake,git://github.com/openembedded/bitbake.git,1.50,b32e6c8d4ea2f83fe77021207e9db883fec82d97
+bitbake,git://github.com/openembedded/bitbake.git,1.50,9b2d96b27f550da0fa68ba9ea96be98eb3a832a6
 meta-calaos,https://github.com/calaos/meta-calaos.git,master,1e60bebe2acbe17e6643a77ade49af84e45c787d
-meta-intel,git://git.yoctoproject.org/meta-intel,hardknott,610cdb495cdc7eda95bfa03824220272ca256e7f
-meta-openembedded,git://git.openembedded.org/meta-openembedded,hardknott,2297d4ee04b47bc574f8879732d9e213ab7bf685
+meta-intel,git://git.yoctoproject.org/meta-intel,hardknott,5c4a6b02f650a99a5ec55561443fcf880a863d19
+meta-openembedded,git://git.openembedded.org/meta-openembedded,hardknott,5741b949a875b07335d4920aefa6defd13ed45c6
 meta-qt5,https://github.com/meta-qt5/meta-qt5.git,hardknott,a00af3eae082b772469d9dd21b2371dd4d237684
-meta-raspberrypi,git://git.yoctoproject.org/meta-raspberrypi,master,74deec51ded5b22b31b69b30537a6e9ed0997aea
-meta-yocto,git://git.yoctoproject.org/meta-yocto,hardknott,32a30ba2b445e5a8440b35f44f0937c1f1190a71
-oe-core,https://github.com/openembedded/openembedded-core,hardknott,08b2c9a23ce43ed65a16f5f0714b19a571e1b54a
+meta-raspberrypi,git://git.yoctoproject.org/meta-raspberrypi,hardknott,9d372828ba657340a42e31875d2326e5f6753403
+meta-yocto,git://git.yoctoproject.org/meta-yocto,hardknott,aaeea8c91a51a6f65f05ffecb970358a7b2378ef
+oe-core,https://github.com/openembedded/openembedded-core,hardknott,e3a7eaf9fe1420b2525e14f0c0f2936e7818b8a3
