@@ -1,5 +1,5 @@
 bitbake,git://github.com/openembedded/bitbake.git,1.50,9b2d96b27f550da0fa68ba9ea96be98eb3a832a6
-meta-calaos,https://github.com/calaos/meta-calaos.git,master,1e60bebe2acbe17e6643a77ade49af84e45c787d
+meta-calaos,https://github.com/calaos/meta-calaos.git,dev/nae/hardknott,052aca3692171979feafef08b260e299357c563a
 meta-intel,git://git.yoctoproject.org/meta-intel,hardknott,5c4a6b02f650a99a5ec55561443fcf880a863d19
 meta-openembedded,git://git.openembedded.org/meta-openembedded,hardknott,5741b949a875b07335d4920aefa6defd13ed45c6
 meta-qt5,https://github.com/meta-qt5/meta-qt5.git,hardknott,a00af3eae082b772469d9dd21b2371dd4d237684
